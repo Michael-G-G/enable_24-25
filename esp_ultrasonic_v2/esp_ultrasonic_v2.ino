@@ -1,6 +1,6 @@
 // Define pins for Trigger and Echo
-#define TRIG_PIN 4 // GPIO pin connected to the Trigger pin of the sensor
-#define ECHO_PIN 5 // GPIO pin connected to the Echo pin of the sensor
+#define TRIG_PIN 32 // GPIO pin connected to the Trigger pin of the sensor
+#define ECHO_PIN 33 // GPIO pin connected to the Echo pin of the sensor
 
 void setup() {
   Serial.begin(115200);               // Start the Serial Monitor at 115200 baud rate
