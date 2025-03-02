@@ -20,6 +20,8 @@
 #include "sdkconfig.h"
 #include "camera_index.h"
 
+extern int overlayValue;
+
 #if defined(ARDUINO_ARCH_ESP32) && defined(CONFIG_ARDUHAL_ESP_LOG)
 #include "esp32-hal-log.h"
 #define TAG ""
@@ -1188,17 +1190,20 @@ static esp_err_t index_handler(httpd_req_t *req)
     httpd_resp_set_hdr(req, "Content-Encoding", "gzip");
     sensor_t *s = esp_camera_sensor_get();
     if (s != NULL) {
-        if (s->id.PID == OV3660_PID) {
-            return httpd_resp_send(req, (const char *)index_ov3660_html_gz, index_ov3660_html_gz_len);
-        } else if (s->id.PID == OV5640_PID) {
-            return httpd_resp_send(req, (const char *)index_ov5640_html_gz, index_ov5640_html_gz_len);
-        } else {
-            return httpd_resp_send(req, (const char *)index_ov2640_html_gz, index_ov2640_html_gz_len);
-        }
+        return httpd_resp_send(req, (const char *)index_ov2640_mod_html_gz, index_ov2640_mod_html_gz_len);
     } else {
         ESP_LOGE(TAG, "Camera sensor not found");
         return httpd_resp_send_500(req);
     }
+}
+
+static esp_err_t overlay_handler(httpd_req_t *req) {
+    char valueStr[4]; // Buffer to hold the value as a string
+    snprintf(valueStr, sizeof(valueStr), "%d", overlayValue);
+    
+    httpd_resp_set_type(req, "text/plain");
+    httpd_resp_send(req, valueStr, strlen(valueStr));
+    return ESP_OK;
 }
 
 void startCameraServer()
@@ -1349,6 +1354,13 @@ void startCameraServer()
 #endif
     };
 
+    httpd_uri_t overlay_uri = {
+        .uri       = "/overlay-value",
+        .method    = HTTP_GET,
+        .handler   = overlay_handler,
+        .user_ctx  = NULL
+    };
+
     ra_filter_init(&ra_filter, 20);
 
 #if CONFIG_ESP_FACE_RECOGNITION_ENABLED
@@ -1379,5 +1391,6 @@ void startCameraServer()
     if (httpd_start(&stream_httpd, &config) == ESP_OK)
     {
         httpd_register_uri_handler(stream_httpd, &stream_uri);
+        httpd_register_uri_handler(camera_httpd, &overlay_uri);
     }
 }
