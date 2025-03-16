@@ -33,8 +33,8 @@
 
 #include "camera_pins.h"
 
-const char *ssid_Router     = "SM-G781W6829";  //input your wifi name
-const char *password_Router = "ThankYouForWifi";  //input your wifi passwords
+const char *ssid_Router     = "S22";  //input your wifi name
+const char *password_Router = "qwertyuiop";  //input your wifi passwords
 camera_config_t config;
 
 void startCameraServer();
@@ -50,6 +50,9 @@ void setup() {
   Serial.begin(115200);
   Serial.setDebugOutput(true);
   Serial.println();
+
+  pinMode(TRIG_PIN, OUTPUT);  // Set Trigger pin as OUTPUT
+  pinMode(ECHO_PIN, INPUT);   // Set Echo pin as INPUT
 
   camera_init();
 
@@ -84,10 +87,7 @@ void setup() {
 
 void loop() {
   // Trigger the sensor
-  Serial.println("In the loop");
   float duration = getAverageDuration();
-  Serial.print("Average duration = ");
-  Serial.println(duration);
   // Convert duration to distance in cm
   float distance = (duration / 2.0) * 0.0343;
 
