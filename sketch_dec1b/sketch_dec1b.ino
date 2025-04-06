@@ -33,8 +33,8 @@
 
 #include "camera_pins.h"
 
-const char *ssid_Router     = "SM-G781W6829";  //input your wifi name
-const char *password_Router = "ThankYouForWifi";  //input your wifi passwords
+const char *ssid_Router     = "Abraham lincoln's Telephone Line (1202)";  //input your wifi name
+const char *password_Router = "joemanscho";  //input your wifi passwords
 camera_config_t config;
 
 void startCameraServer();
