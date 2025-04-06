@@ -35,7 +35,7 @@
 
 const char *ssid_Router     = "Abraham lincoln's Telephone Line (1202)";  //input your wifi name
 const char *password_Router = "joemanscho";  //input your wifi passwords
-camera_config_t config;
+ camera_config_t config;
 
 void startCameraServer();
 void camera_init();
