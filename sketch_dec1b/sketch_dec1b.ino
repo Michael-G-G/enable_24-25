@@ -35,6 +35,7 @@
 
 const char *ssid_Router     = "S22";  //input your wifi name
 const char *password_Router = "qwertyuiop";  //input your wifi passwords
+
 camera_config_t config;
 
 void startCameraServer();
