@@ -2,12 +2,9 @@
 #define TRIG_PIN 10  // GPIO pin connected to the Trigger pin of the sensor
 #define ECHO_PIN 9   // GPIO pin connected to the Echo pin of the sensor
 
-
-
 float lastDistance = 0;     // Set an arbitrary last distance reading
 int changeCount = 0;        // Counts the number of times the threshold is exceeded before accepting the reading
 float valuesExceeded[3] = {0, 0, 0}; // Store last three changes
-
 
 // Trigger the sensors. Returns the average of 5 duration readings
 float getAverageDuration() {
