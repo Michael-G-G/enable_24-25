@@ -378,6 +378,47 @@
                 display: none
             }
 
+        #stream-container {
+    position: relative;
+          }
+          .guide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Horizontal bar near the bottom center */
+.guide-bar-horizontal {
+    position: absolute;
+    bottom: 20px;
+    left: 10%;
+    width: 80%;
+    height: 6px;
+    background-color: rgba(0, 255, 8, 0.6);
+    border-radius: 3px;
+}
+
+/* Vertical bars on left/right */
+.guide-bar-vertical {
+    position: absolute;
+    top: 15%;
+    height: 70%;
+    width: 6px;
+    background-color: rgba(0, 255, 42, 0.6);
+    border-radius: 3px;
+}
+
+.guide-bar-vertical.left {
+    left: 10%;
+}
+
+.guide-bar-vertical.right {
+    right: 10%;
+}
         </style>
     </head>
     <body>
@@ -707,7 +748,14 @@
                         <a id="save-still" href="#" class="button save" download="capture.jpg">Save</a>
                         <div class="close" id="close-stream">Ã</div>
                         <img id="stream" src="" crossorigin>
+                        <!-- 🟩🟨🟥 Parking Assist Guide Bars -->
+                        <div class="guide-overlay">
+                          <div class="guide-bar-vertical left"></div>
+                          <div class="guide-bar-vertical right"></div>
+                          <div class="guide-bar-horizontal"></div>
+                      </div>
                     </div>
+                    
                 </figure>
             </div>
         </section>
@@ -1148,6 +1196,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
       disable(enrollButton)
     }
   }
+  startStream();
+  streamButton.innerHTML = 'Stop Stream';
 })
 
         </script>
